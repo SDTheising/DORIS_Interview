@@ -19,6 +19,13 @@ used_per_ws = ws.group_by("Point").agg(
     pl.col("occupied").any().alias("used")
 )
 
+# Count number of used and unused stations
+num_used = used_per_ws.filter(pl.col("used") == True).height
+num_unused = used_per_ws.filter(pl.col("used") == False).height
+
+print(num_used)
+print(num_unused + num_used)
+
 # Compute the two floats: % used vs % never used
 pct_used  = used_per_ws.select((pl.col("used").mean() * 100).round(2)).to_series()[0]
 pct_never = 100.0 - pct_used

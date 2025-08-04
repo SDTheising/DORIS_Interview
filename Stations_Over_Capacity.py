@@ -10,7 +10,7 @@ df = pl.read_excel("./DorisInt.xlsx").with_columns([
     pl.col("ts").dt.hour().alias("hour")
 )
 # Filter out conference rooms.
-df = df.filter(pl.col("Type") != "Conference Room")
+df = df.filter(pl.col("Type_clean") != "Conference Room")
 
 # Find which stations ever went over capacity.
 stations_over = (
